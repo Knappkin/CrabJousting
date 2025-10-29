@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class PerlinNoise : MonoBehaviour
 {
@@ -14,11 +15,16 @@ public class PerlinNoise : MonoBehaviour
     private Vector2 start;
     private Vector2 end;
 
+    //private CanvasRenderer levelMeshCanvasRenderer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         float randomNum = Random.Range(0f, 10f);
         xScale = randomNum;
+        int randomNum2 = Random.Range(1, 3);
+        heightScale = randomNum2;
+
     }
 
     // Update is called once per frame
@@ -41,6 +47,21 @@ public class PerlinNoise : MonoBehaviour
 
         }
         Points.points = perlinToCollision;
+
+        //for (int l = 0; l < colliderPoints.Count; l++)
+        //{
+        //    Mesh mesh = new Mesh();
+
+        //    Vector3[] vertices = new Vector3[19];
+        //    Vector2[] uv = new Vector2[19];
+        //    int[] triangles = new int[19];
+
+        //    vertices[0] = Vector3.zero;
+        //    vertices[1] = new Vector3();
+        //}
+
+
+
         //if (pn == colliderPoints[16].x)
         //{
         DrawLevel(colliderPoints);
