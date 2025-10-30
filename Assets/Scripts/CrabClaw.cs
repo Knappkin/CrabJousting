@@ -13,6 +13,7 @@ public class CrabClaw : MonoBehaviour
     public LayerMask terrainLayer;
     public Rigidbody2D rb;
 
+    [SerializeField] private float crabRotateSpeed;
    [SerializeField] private Color defaultColour;
     [SerializeField] private Color pinchColour;
 
@@ -47,9 +48,13 @@ public class CrabClaw : MonoBehaviour
             isPinched=false;
             GetComponent<SpriteRenderer>().color = defaultColour;
 
-            body.transform.SetParent(null);
+            pinchingTerrain = false;
+
+            body.transform.SetParent(crab.transform);
 
             rotationObject.transform.SetParent(body.transform);
+
+            //rotationObject.transform.position = body.transform.position;
         }
 
         Debug.DrawLine(transform.position, body.transform.position, Color.white);
@@ -74,11 +79,16 @@ public class CrabClaw : MonoBehaviour
     {
         if (isPinched && pinchingTerrain)
         {
+
+            // WaveArm(body);
+
+
+
             Debug.Log("WILL ROTATE CRAB AT THIS POINT");
             float zRot = joyconScript.orientation.z * Mathf.Rad2Deg;
             zRot = Mathf.Clamp(zRot, -35, 35);
 
-            rb.AddTorque((zRot - 15) * spinSpeed);
+            rb.AddTorque(zRot * crabRotateSpeed);
         }
     }
 
@@ -100,14 +110,14 @@ public class CrabClaw : MonoBehaviour
             rotationCore.transform.parent.Rotate(0, 0, Time.deltaTime * (zRot + 15) * spinSpeed);
         }
     }
-    
+
 
 
     private void PinchClaw()
     {
-        
 
-        if (Physics2D.Raycast(transform.position,transform.up,1f,terrainLayer))
+
+        if (Physics2D.Raycast(transform.position, transform.up, 1f, terrainLayer))
         {
             Debug.Log("YAHOO");
 
@@ -115,20 +125,25 @@ public class CrabClaw : MonoBehaviour
 
             //rotationPoint = transform.position;
 
-             GetComponent<SpriteRenderer>().color = pinchColour;
+            GetComponent<SpriteRenderer>().color = pinchColour;
 
             rotationObject.transform.SetParent(null);
+
+            pinchingTerrain = true;
 
             body.transform.SetParent(rotationObject.transform);
 
 
-            body.GetComponent<Rigidbody2D>();
-           
         }
-         
-         
-        
 
-       // if()
+
+
+
+        // if()
+    }
+
+    private void LetGoClaw()
+    {
+        
     }
 }
