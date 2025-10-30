@@ -3,11 +3,12 @@ using UnityEngine;
 public class Ready2 : MonoBehaviour
 {
     public Sprite newSprite;   // Assign this in the Inspector
+    public bool isReady;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        isReady = false;
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class Ready2 : MonoBehaviour
             {
                 // Change the sprite
                 spriteRenderer.sprite = newSprite;
+                isReady = true;
             }
             else
             {
