@@ -240,7 +240,6 @@ Transform:
   m_Children:
   - {fileID: 1428946225}
   - {fileID: 1743824827}
-  - {fileID: 1326334748}
   - {fileID: 1587655727}
   - {fileID: 939531883}
   m_Father: {fileID: 1960468292}
@@ -384,6 +383,8 @@ GameObject:
   - component: {fileID: 379910264}
   - component: {fileID: 379910263}
   - component: {fileID: 379910265}
+  - component: {fileID: 379910266}
+  - component: {fileID: 379910267}
   m_Layer: 0
   m_Name: Claw
   m_TagString: Untagged
@@ -456,7 +457,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.2, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1326334748}
@@ -468,7 +469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379910262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e69bd7fc6443534ba55de300b36263e, type: 3}
   m_Name: 
@@ -485,6 +486,55 @@ MonoBehaviour:
   pinchColour: {r: 0.70440245, g: 0.48686638, b: 0, a: 1}
   spinSpeed: 12
   maxArmRange: 1
+--- !u!114 &379910266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379910262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3326dd8a1a99408468688c82dd881664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joycon: {fileID: 2065653407}
+  body: {fileID: 229364410}
+  rbBody: {fileID: 229364413}
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  defaultColour: {r: 0.9960785, g: 0.7411765, b: 0.14117648, a: 1}
+  pinchColour: {r: 0.7058824, g: 0.48627454, b: 0, a: 1}
+  motionBuffer: 0.025
+  spinSpeed: 0.25
+--- !u!50 &379910267
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379910262}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &771013612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1281,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 379910264}
-  m_Father: {fileID: 229364411}
+  m_Father: {fileID: 1960468292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1336239002
 GameObject:
@@ -1754,6 +1804,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 229364411}
+  - {fileID: 1326334748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2065653407

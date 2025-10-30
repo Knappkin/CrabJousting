@@ -89,7 +89,7 @@ public class CrabClaw : MonoBehaviour
         float zRot = joyconScript.orientation.z * Mathf.Rad2Deg;
         zRot = Mathf.Clamp(zRot, -35, 35);
 
-       // Debug.Log(zRot);
+       Debug.Log(zRot);
         if (zRot < 180 && zRot > 15)
         {
             rotationCore.transform.parent.Rotate(0, 0, Time.deltaTime * (zRot - 15) * spinSpeed);
