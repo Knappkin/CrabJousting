@@ -11,6 +11,7 @@ public class CrabClaw : MonoBehaviour
     public GameObject rotationObject;
 
     public LayerMask terrainLayer;
+    public Rigidbody2D rb;
 
    [SerializeField] private Color defaultColour;
     [SerializeField] private Color pinchColour;
@@ -19,6 +20,8 @@ public class CrabClaw : MonoBehaviour
     [SerializeField] private float maxArmRange;
 
     Vector2 defaultPos;
+
+    Vector2 rotationPoint;
 
     private bool isPinched;
     private bool pinchingTerrain;
@@ -61,15 +64,22 @@ public class CrabClaw : MonoBehaviour
             PinchClaw();
         }
 
-        if (isPinched && pinchingTerrain)
-        {
-            WaveArm(body);
-        }
+        //if (isPinched && pinchingTerrain)
+        //{
+        //    WaveArm(body);
+        //}
     }
 
     private void FixedUpdate()
     {
-       
+        if (isPinched && pinchingTerrain)
+        {
+            Debug.Log("WILL ROTATE CRAB AT THIS POINT");
+            float zRot = joyconScript.orientation.z * Mathf.Rad2Deg;
+            zRot = Mathf.Clamp(zRot, -35, 35);
+
+            rb.AddTorque((zRot - 15) * spinSpeed);
+        }
     }
 
     private void WaveArm(GameObject rotationCore)
@@ -95,7 +105,7 @@ public class CrabClaw : MonoBehaviour
 
     private void PinchClaw()
     {
-        //RaycastHit2D hit;
+        
 
         if (Physics2D.Raycast(transform.position,transform.up,1f,terrainLayer))
         {
@@ -103,17 +113,20 @@ public class CrabClaw : MonoBehaviour
 
             isPinched = true;
 
+            //rotationPoint = transform.position;
 
-            GetComponent<SpriteRenderer>().color = pinchColour;
+             GetComponent<SpriteRenderer>().color = pinchColour;
 
             rotationObject.transform.SetParent(null);
 
             body.transform.SetParent(rotationObject.transform);
 
 
+            body.GetComponent<Rigidbody2D>();
+           
         }
-        
-        
+         
+         
         
 
        // if()
