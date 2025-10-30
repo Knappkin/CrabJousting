@@ -8,13 +8,25 @@ public class CrabClaw : MonoBehaviour
     private jcdPlus joyconScript;
     public GameObject crab;
 
+    public GameObject rotationObject;
+
+    public LayerMask terrainLayer;
+
+   [SerializeField] private Color defaultColour;
+    [SerializeField] private Color pinchColour;
+
     [SerializeField] private float spinSpeed;
     [SerializeField] private float maxArmRange;
 
     Vector2 defaultPos;
+
+    private bool isPinched;
+    private bool pinchingTerrain;
+    private bool pinchingEnemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isPinched = false;
         joyconScript = joycon.GetComponent<jcdPlus>();
         defaultPos = new Vector2(0,-0.7f);
     }
@@ -22,34 +34,88 @@ public class CrabClaw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isPinched)
+        {
+            WaveArm(gameObject);
+        }
+      
+        if (isPinched && Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            isPinched=false;
+            GetComponent<SpriteRenderer>().color = defaultColour;
 
-        Move();
+            body.transform.SetParent(null);
+
+            rotationObject.transform.SetParent(body.transform);
+        }
 
         Debug.DrawLine(transform.position, body.transform.position, Color.white);
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             crab.transform.position = defaultPos;
-        }  
+        }
+
+        if (!isPinched && Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PinchClaw();
+        }
+
+        if (isPinched && pinchingTerrain)
+        {
+            WaveArm(body);
+        }
     }
 
-    private void Move()
+    private void FixedUpdate()
+    {
+       
+    }
+
+    private void WaveArm(GameObject rotationCore)
     {
        
 
         float zRot = joyconScript.orientation.z * Mathf.Rad2Deg;
         zRot = Mathf.Clamp(zRot, -35, 35);
 
-        Debug.Log(zRot);
+       // Debug.Log(zRot);
         if (zRot < 180 && zRot > 15)
         {
-            transform.parent.Rotate(0, 0, Time.deltaTime * (zRot - 15) * spinSpeed);
+            rotationCore.transform.parent.Rotate(0, 0, Time.deltaTime * (zRot - 15) * spinSpeed);
         }
 
         if (zRot < -15 && zRot > -180)
         {
-            transform.parent.Rotate(0, 0, Time.deltaTime * (zRot + 15) * spinSpeed);
+            rotationCore.transform.parent.Rotate(0, 0, Time.deltaTime * (zRot + 15) * spinSpeed);
         }
     }
     
+
+
+    private void PinchClaw()
+    {
+        //RaycastHit2D hit;
+
+        if (Physics2D.Raycast(transform.position,transform.up,1f,terrainLayer))
+        {
+            Debug.Log("YAHOO");
+
+            isPinched = true;
+
+
+            GetComponent<SpriteRenderer>().color = pinchColour;
+
+            rotationObject.transform.SetParent(null);
+
+            body.transform.SetParent(rotationObject.transform);
+
+
+        }
+        
+        
+        
+
+       // if()
+    }
 }
