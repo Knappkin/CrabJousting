@@ -19,6 +19,8 @@ public class CrabClaw : MonoBehaviour
     [SerializeField] private float spinSpeed;
     [SerializeField] private float maxArmRange;
 
+    public KeyCode pinchKey;
+
     Vector2 defaultPos;
 
     Vector2 rotationPoint;
@@ -42,7 +44,7 @@ public class CrabClaw : MonoBehaviour
             WaveArm(gameObject);
         }
       
-        if (isPinched && Input.GetKeyUp(KeyCode.LeftArrow))
+        if (isPinched && Input.GetKeyUp(pinchKey))
         {
             isPinched=false;
             GetComponent<SpriteRenderer>().color = defaultColour;
@@ -59,7 +61,7 @@ public class CrabClaw : MonoBehaviour
             crab.transform.position = defaultPos;
         }
 
-        if (!isPinched && Input.GetKeyDown(KeyCode.LeftArrow))
+        if (!isPinched && Input.GetKeyDown(pinchKey))
         {
             PinchClaw();
         }

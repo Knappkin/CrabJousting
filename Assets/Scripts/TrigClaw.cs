@@ -7,6 +7,7 @@ public class TrigClaw : MonoBehaviour
     public GameObject joycon;
     private jcdPlus joyconScript;
     public GameObject body;
+    public GameObject crab;
 
     private Rigidbody2D rbClaw;
     public Rigidbody2D rbBody;
@@ -16,20 +17,30 @@ public class TrigClaw : MonoBehaviour
     private Vector3 clawVector;
 
     public LayerMask terrainLayer;
+    public LayerMask crabLayer;
+
     [SerializeField] private Color defaultColour;
     [SerializeField] private Color pinchColour;
 
     [SerializeField] private float motionBuffer;
     [SerializeField] private float spinSpeed;
+
+    [SerializeField] private float startClawAngle;
+
     float clawAngle;
     float bodyAngle;
 
     private bool isPinchedGround;
+
+    public GameObject enemyBody;
+    public TrigClaw enemyScript;
+
+    public KeyCode pinchKey;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
-        clawAngle = 0;
+        Debug.Log(transform.parent.name);
+        clawAngle = startClawAngle;
         bodyAngle = 0;
 
         rbClaw = GetComponent<Rigidbody2D>();
@@ -47,12 +58,12 @@ public class TrigClaw : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && !isPinchedGround)
+        if (Input.GetKeyDown(pinchKey) && !isPinchedGround)
         {
             PinchClaw();
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && isPinchedGround)
+        if (Input.GetKeyUp(pinchKey) && isPinchedGround)
         {
             LetGoTerrain();
 
@@ -112,6 +123,11 @@ public class TrigClaw : MonoBehaviour
             body.GetComponent<Rigidbody2D>();
 
         }
+
+        if (Physics2D.Raycast(transform.position, transform.up, 1f, crabLayer))
+        {
+
+        }
     }
 
     private void LetGoTerrain()
@@ -145,7 +161,7 @@ public class TrigClaw : MonoBehaviour
         //float zRot = joyconScript.orientation.z;
         //zRot = Mathf.Clamp(zRot, -35, 35);
 
-        if (!Physics2D.Raycast(rbBody.position, rbBody.transform.up, 1, terrainLayer))
+        if (!Physics2D.Raycast(bodyVector, rbBody.transform.up, 1, terrainLayer))
         {
             rbBody.MovePosition(bodyVector);
         }
