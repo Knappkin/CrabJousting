@@ -11,7 +11,7 @@ public class TrigClaw : MonoBehaviour
     private Rigidbody2D rbClaw;
     public Rigidbody2D rbBody;
 
-    private float clawRadius;
+    [SerializeField] private float clawRadius;
     private Vector3 bodyVector;
     private Vector3 clawVector;
 
@@ -22,19 +22,25 @@ public class TrigClaw : MonoBehaviour
     [SerializeField] private float motionBuffer;
     [SerializeField] private float spinSpeed;
     float clawAngle;
+    float bodyAngle;
 
     private bool isPinchedGround;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        clawRadius = 3;
+       
         clawAngle = 0;
+        bodyAngle = 0;
 
         rbClaw = GetComponent<Rigidbody2D>();
+        rbBody = body.GetComponent<Rigidbody2D>();
 
         joyconScript = joycon.GetComponent<jcdPlus>();
 
         isPinchedGround = false;
+
+        //rbClaw.MovePosition(clawAngle * radius);
+
     }
 
     // Update is called once per frame
@@ -60,6 +66,11 @@ public class TrigClaw : MonoBehaviour
             WaveArm();
         }
 
+       if (isPinchedGround)
+        {
+            MoveBody();
+        }
+
     }
 
     private void WaveArm()
@@ -73,7 +84,8 @@ public class TrigClaw : MonoBehaviour
         }
 
         float clawAngleRad = clawAngle * Mathf.Deg2Rad;
-        clawVector = rbBody.position + new Vector2(Mathf.Cos(clawAngle), Mathf.Sin(clawAngle) * clawRadius);
+        Vector2 clawDirection = new Vector2(Mathf.Cos(clawAngle), Mathf.Sin(clawAngle)).normalized;
+        clawVector = rbBody.position + clawDirection * clawRadius;
 
         rbClaw.MovePosition(clawVector);
     }
@@ -106,6 +118,51 @@ public class TrigClaw : MonoBehaviour
     {
         isPinchedGround = false;
         GetComponent<SpriteRenderer>().color = defaultColour;
+    }
+
+    private void MoveBody()
+    {
+        float zRot = joyconScript.orientation.z;
+        zRot = Mathf.Clamp(zRot, -35, 35);
+
+        if (Mathf.Abs(zRot) > motionBuffer)
+        {
+            bodyAngle += zRot * spinSpeed;
+        }
+
+        float bodyAngleRad = bodyAngle * Mathf.Deg2Rad;
+        Vector2 bodyDirection = new Vector2(Mathf.Cos(bodyAngle), Mathf.Sin(bodyAngle)).normalized;
+        bodyVector = rbClaw.position + bodyDirection * clawRadius;
+
+        
+
+        Vector2 bodyDirectionVector = (rbClaw.position - rbBody.position).normalized;
+        //Vector2 bodyPosition = bodyDirectionVector * clawRadius;
+
+        bodyAngleRad = Mathf.Atan2(bodyDirectionVector.y, bodyDirectionVector.x);
+        // bodyAngle = bodyAngleRad * Mathf.Rad2Deg;
+
+        //float zRot = joyconScript.orientation.z;
+        //zRot = Mathf.Clamp(zRot, -35, 35);
+
+        if (!Physics2D.Raycast(rbBody.position, rbBody.transform.up, 1, terrainLayer))
+        {
+            rbBody.MovePosition(bodyVector);
+        }
+        //if (Mathf.Abs(zRot) > motionBuffer)
+        //{
+        //    bodyAngle += zRot * spinSpeed;
+        //}
+
+        //bodyAngleRad = bodyAngle * Mathf.Deg2Rad;
+
+        //Vector2 bodyDirection = new Vector2(Mathf.Cos(bodyAngleRad), Mathf.Sin(bodyAngleRad)).normalized;
+        //bodyVector = rbClaw.position + bodyDirection * clawRadius;
+
+        //rbBody.MovePosition(bodyVector);
+
+
+
     }
 
     }
