@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "name": "P1Controls",
+    "maps": [
+        {
+            "name": "Player1",
+            "id": "5995e39c-0843-46db-b044-55c14601f559",
+            "actions": [
+                {
+                    "name": "Pinch",
+                    "type": "Button",
+                    "id": "b542113d-6ba5-4160-9318-ebbb40c00227",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "715918ac-e23a-4349-aaeb-60026f5fcf56",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ba44ce8-6ce8-464f-97da-f49d0e6d5ae5",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
