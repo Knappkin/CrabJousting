@@ -5,6 +5,6 @@ public class NextScene : MonoBehaviour
 {
     public void Loading()
     {
-        SceneManager.LoadScene("ReadyScreen");
+        SceneManager.LoadScene("CrabJousting");
     }
 }
