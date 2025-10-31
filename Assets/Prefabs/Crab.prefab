@@ -190,16 +190,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joycon: {fileID: 0}
   body: {fileID: 3056563875931498489}
+  crab: {fileID: 0}
   rbBody: {fileID: 4759842503548055089}
   clawRadius: 1.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
+  crabLayer:
+    serializedVersion: 2
+    m_Bits: 0
   defaultColour: {r: 0.9960785, g: 0.7411765, b: 0.14117648, a: 1}
   pinchColour: {r: 0.7058824, g: 0.48627454, b: 0, a: 1}
   motionBuffer: 0.025
-  spinSpeed: 0.25
+  spinSpeed: 0.2
   startClawAngle: 0
+  enemyBody: {fileID: 0}
+  enemyScript: {fileID: 0}
   pinchKey: 0
 --- !u!50 &5199629663911059026
 Rigidbody2D:

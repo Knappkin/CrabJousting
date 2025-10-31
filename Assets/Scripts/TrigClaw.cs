@@ -107,7 +107,6 @@ public class TrigClaw : MonoBehaviour
 
         if (Physics2D.Raycast(transform.position, transform.up, 1f, terrainLayer))
         {
-            Debug.Log("YAHOO");
 
             isPinchedGround = true;
 
@@ -115,18 +114,16 @@ public class TrigClaw : MonoBehaviour
 
             GetComponent<SpriteRenderer>().color = pinchColour;
 
-            //  rotationObject.transform.SetParent(null);
-
-            //body.transform.SetParent(rotationObject.transform);
+           
 
 
-            body.GetComponent<Rigidbody2D>();
+           
 
         }
 
         if (Physics2D.Raycast(transform.position, transform.up, 1f, crabLayer))
         {
-
+            Debug.Log("ADASDA:LSDA:LD");
         }
     }
 
@@ -153,29 +150,16 @@ public class TrigClaw : MonoBehaviour
         
 
         Vector2 bodyDirectionVector = (rbClaw.position - rbBody.position).normalized;
-        //Vector2 bodyPosition = bodyDirectionVector * clawRadius;
+
 
         bodyAngleRad = Mathf.Atan2(bodyDirectionVector.y, bodyDirectionVector.x);
-        // bodyAngle = bodyAngleRad * Mathf.Rad2Deg;
-
-        //float zRot = joyconScript.orientation.z;
-        //zRot = Mathf.Clamp(zRot, -35, 35);
+       
 
         if (!Physics2D.Raycast(bodyVector, rbBody.transform.up, 1, terrainLayer))
         {
             rbBody.MovePosition(bodyVector);
         }
-        //if (Mathf.Abs(zRot) > motionBuffer)
-        //{
-        //    bodyAngle += zRot * spinSpeed;
-        //}
-
-        //bodyAngleRad = bodyAngle * Mathf.Deg2Rad;
-
-        //Vector2 bodyDirection = new Vector2(Mathf.Cos(bodyAngleRad), Mathf.Sin(bodyAngleRad)).normalized;
-        //bodyVector = rbClaw.position + bodyDirection * clawRadius;
-
-        //rbBody.MovePosition(bodyVector);
+       
 
 
 
