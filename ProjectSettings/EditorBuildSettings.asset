@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReadyScreen.unity
     guid: 8abe1565bc410144dafc5ded704973e6
+  - enabled: 1
+    path: Assets/Scenes/CrabJousting.unity
+    guid: 3991684b535d19844aa886c05c5abb08
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: da32c8299e6a50c45bde5eb74777605d, type: 3}
   m_UseUCBPForAssetBundles: 0

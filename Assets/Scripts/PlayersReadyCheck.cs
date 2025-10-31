@@ -11,7 +11,7 @@ public class PlayersReadyCheck : MonoBehaviour
     {
         if ((p1.GetComponent<Ready1>().isReady) && (p2.GetComponent<Ready2>().isReady))
         {
-            SceneManager.LoadScene("insertNameHere");
+            SceneManager.LoadScene("CrabJousting");
         }
     }
 }
